@@ -334,7 +334,7 @@ class LANE_DETECTION:
                 [self.img_dimensions[1], self.img_dimensions[0]*7//9],
                 [self.img_dimensions[1]*45//99,self.img_dimensions[0]//2],
                 [self.img_dimensions[1]*45//99,self.img_dimensions[0]//2]], dtype=np.int32)
-        cv2.fillPoly(roi, [roi_points], 1)
+        cv2.fillPoly(roi, [roi_points.astype(np.int32)], 1)
         self.lane_roi = np.zeros((self.img_dimensions[0], self.img_dimensions[1]), dtype=np.uint8)
         Lhs = np.zeros((2,2), dtype= np.float32)
         Rhs = np.zeros((2,1), dtype= np.float32)
