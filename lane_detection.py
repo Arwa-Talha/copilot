@@ -412,6 +412,8 @@ class LANE_DETECTION:
         if (x2-x1<min_wid):
             min_wid = x2-x1
         self.px_per_xm = min_wid/self.real_world_lane_size_meters[1]
+        self.px_per_ym = min_height / self.real_world_lane_size_meters[0]  # تأكد من قيمة min_height
+
         self.xm_per_px =  1/self.px_per_xm
         if False :#self.camera.callibration_done :
             Lh = 1#np.linalg.inv(np.matmul(self.trans_mat, self.camera.cam_matrix))
