@@ -276,7 +276,7 @@ class LANE_DETECTION:
         self.UNWARPED_SIZE  = (360,360)#(int(self.img_dimensions[1]*0.5),int(self.img_dimensions[1]*0.5))
         self.WRAPPED_WIDTH =  int(self.img_dimensions[1]*0.15)
         self.margin = int(self.UNWARPED_SIZE[1]*0.08)
-        self.window_height = np.int(self.UNWARPED_SIZE[1]//self.windows_per_line)
+        self.window_height = int(self.UNWARPED_SIZE[1]//self.windows_per_line)
         self._pip_size = (int(self.image.shape[1] * 0.2), int(self.image.shape[0]*0.2))
         self.minpix=self.window_height
         self.maxpix = int(self.margin * self.window_height *0.5)
