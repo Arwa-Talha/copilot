@@ -417,8 +417,8 @@ class LANE_DETECTION:
             Lh = 1#np.linalg.inv(np.matmul(self.trans_mat, self.camera.cam_matrix))
         else:
             Lh = np.linalg.inv(self.trans_mat)
-        self.px_per_ym = self.px_per_xm * np.linalg.norm(Lh[:,0]) / np.linalg.norm(Lh[:,1])
-        self.ym_per_px =  1/self.px_per_ym
+        self.xm_per_px =  1/self.px_per_xm if self.px_per_xm != 0 else 0
+        self.ym_per_px =  1/self.px_per_ym if self.px_per_ym != 0 else 0
         self.perspective_done_at =  datetime.utcnow().timestamp()
 
         pos = np.array((self.vanishing_point[0], bottom )).reshape(1, 1, -1)
@@ -429,6 +429,12 @@ class LANE_DETECTION:
             img_orig = cv2.polylines(self.image, [src_points.astype(np.int32)],True, (0,0,255), thickness=5)
             cv2.line(img, (int(x1), 0), (int(x1), self.UNWARPED_SIZE[1]), (255, 0, 0), 3)
             cv2.line(img, (int(x2), 0), (int(x2), self.UNWARPED_SIZE[1]), (0, 0, 255), 3)
+            print("Vanishing Point:", self.vanishing_point, type(self.vanishing_point))
+       
+        if self.vanishing_point is None or np.any(np.isnan(self.vanishing_point)) or np.any(np.isinf(self.vanishing_point)):
+            print("⚠️ تحذير: Vanishing Point غير صالح، سيتم استبداله بقيمة افتراضية")
+            self.vanishing_point = (self.UNWARPED_SIZE[1]//2, self.UNWARPED_SIZE[0]//2)  # قيمة افتراضية
+
 
             cv2.circle(img_orig,tuple(self.vanishing_point),10, color=RED, thickness=5)
             cv2.circle(img_orig,tuple(orig_points),10, color=GRAY, thickness=4)
