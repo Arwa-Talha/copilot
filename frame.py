@@ -234,7 +234,7 @@ class FRAME :
             file_path,frame_w,frame_h,fps_actual,nb_frames//fps_actual
             ))
 
-        video_writer = cv2.VideoWriter(video_out, cv2.VideoWriter_fourcc(*'mp4v'), self.fps, (frame_w, frame_h_out))
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # جرب 'XVID' لو ده مش شغال
         #180# 310# seconds
         pers_frame = int(pers_frame_time *fps_actual)
         pers_frame = min(pers_frame, int(video_reader.get(cv2.CAP_PROP_FRAME_COUNT) - 1))  # تأكد أنه داخل المدى
@@ -297,7 +297,7 @@ if __name__ == "__main__":
     # file_path =  "videos/nice_road.mp4"               #110 62
     file_path =  "videos/us-highway.mp4"               #118 143
     # file_path =  "videos/nh60.mp4"                      # 118 18                   
-    video_out = "videos/output11.mov"
+    video_out = "videos/output11.mp4"
     frame =  FRAME( 
         ego_vehicle_offset = .15,
         yellow_lower = np.uint8([ 20, 50,   100]),
