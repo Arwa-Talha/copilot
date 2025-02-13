@@ -234,7 +234,7 @@ class FRAME :
             file_path,frame_w,frame_h,fps_actual,nb_frames//fps_actual
             ))
 
-        video_writer = cv2.VideoWriter(video_out, cv2.VideoWriter_fourcc(*'XVID'), self.fps, (frame_w, frame_h_out))
+        video_writer = cv2.VideoWriter(video_out, cv2.VideoWriter_fourcc(*'mp4v'), self.fps, (frame_w, frame_h_out))
         #180# 310# seconds
         pers_frame = int(pers_frame_time *fps_actual)
         pers_frame = min(pers_frame, int(video_reader.get(cv2.CAP_PROP_FRAME_COUNT) - 1))  # تأكد أنه داخل المدى
