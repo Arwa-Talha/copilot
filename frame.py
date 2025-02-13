@@ -237,8 +237,13 @@ class FRAME :
         video_writer = cv2.VideoWriter(video_out,cv2.VideoWriter_fourcc('m', 'p', '4', 'v'),self.fps, (frame_w, frame_h_out))
         #180# 310# seconds
         pers_frame = int(pers_frame_time *fps_actual)
-        video_reader.set(1,pers_frame)
-        _, self.image = video_reader.read()
+        pers_frame = min(pers_frame, int(video_reader.get(cv2.CAP_PROP_FRAME_COUNT) - 1))  # تأكد أنه داخل المدى
+        video_reader.set(1, pers_frame)
+        ret, self.image = video_reader.read()
+        if not ret or self.image is None:
+            print(f"❌ فشل في قراءة الفريم عند {pers_frame}. تأكد من المسار أو التنسيق.")
+            return
+
         self.image = self.image[:frame_h_out,:,:]
         self.img_shp =  (self.image.shape[1], self.image.shape[0] )
         # self.ego_vehicle_offset = self.img_shp[0]*int(1-self.ego_vehicle_offset)
