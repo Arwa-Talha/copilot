@@ -280,8 +280,6 @@ class FRAME :
         print("SAVED TO ", video_out)
         video_reader.release()
         video_writer.release() 
-        cv2.destroyAllWindows()
-
 
     
      
