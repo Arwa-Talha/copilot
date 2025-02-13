@@ -279,7 +279,8 @@ class FRAME :
                 self.lane.lane.reset,self.lane.lane.appended, self.count))
         print("SAVED TO ", video_out)
         video_reader.release()
-        video_writer.release() 
+        if 'video_writer' in locals():
+            video_writer.release()
 
     
      
